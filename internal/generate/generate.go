@@ -33,7 +33,15 @@ type goModDownload struct {
 }
 
 func sourceFilter(name string, nodeType nar.NodeType) bool {
-	return strings.ToLower(filepath.Base(name)) != ".ds_store"
+	base := filepath.Base(name)
+	if strings.ToLower(base) == ".ds_store" {
+		return false
+	}
+	// Prevent files like `..file.txt` or any suspicious base name
+	if strings.Contains(base, "..") {
+		return false
+	}
+	return true
 }
 
 func common(directory string) ([]*goModDownload, map[string]string, error) {

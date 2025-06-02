@@ -177,10 +177,15 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 			}).Info("Calculating NAR hash")
 
 			h := sha256.New()
-			err := nar.DumpPathFilter(h, dl.Dir, sourceFilter)
+
 			log.WithFields(log.Fields{
 				"dl.dir": dl.Dir,
 			}).Info("Debug")
+
+			err := nar.DumpPathFilter(h, dl.Dir, sourceFilter)
+
+			log.Info("Debugafter filter")
+
 			if err != nil {
 				return err
 			}

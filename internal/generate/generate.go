@@ -145,7 +145,7 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Print(directory, goMod2NixPath)
 	executor := lib.NewParallelExecutor(numWorkers)
 	var mux sync.Mutex
 
@@ -178,7 +178,6 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 			}).Info("Calculating NAR hash")
 
 			h := sha256.New()
-			fmt.Print(h, dl.Dir)
 			err := nar.DumpPathFilter(h, dl.Dir, sourceFilter)
 			if err != nil {
 				return err

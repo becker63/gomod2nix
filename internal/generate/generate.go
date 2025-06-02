@@ -145,7 +145,6 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 	if err != nil {
 		return nil, err
 	}
-	fmt.Print(directory, goMod2NixPath)
 	executor := lib.NewParallelExecutor(numWorkers)
 	var mux sync.Mutex
 
@@ -179,6 +178,10 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 
 			h := sha256.New()
 			err := nar.DumpPathFilter(h, dl.Dir, sourceFilter)
+			log.WithFields(log.Fields{
+				"h":      h,
+				"dl.dir": dl.Dir,
+			}).Info("Debug")
 			if err != nil {
 				return err
 			}

@@ -200,7 +200,9 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 				pkg.ReplacedPath = dl.Path
 			}
 
+			log.Info("before addpkg")
 			addPkg(pkg)
+			log.Info("after addpkg")
 
 			log.WithFields(log.Fields{
 				"goPackagePath": goPackagePath,

@@ -179,7 +179,6 @@ func GeneratePkgs(directory string, goMod2NixPath string, numWorkers int) ([]*sc
 			h := sha256.New()
 			err := nar.DumpPathFilter(h, dl.Dir, sourceFilter)
 			log.WithFields(log.Fields{
-				"h":      h,
 				"dl.dir": dl.Dir,
 			}).Info("Debug")
 			if err != nil {
